@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electronic Pro Shop</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    
+    /* الهيدر */
+    header {
+      background-color: #222;
+      color: white;
+      padding: 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      color: #fff;
+    }
+    
+    .logo span {
+      color: #5cb85c;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    
+    nav ul li {
+      margin-right: 1.5rem;
+    }
+    
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    nav ul li a:hover {
+      color: #5cb85c;
+    }
+    
+    .search-cart {
+      display: flex;
+      align-items: center;
+    }
+    
+    .search-form {
+      position: relative;
+      margin-left: 1rem;
+    }
+    
+    .search-form input {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: none;
+      width: 180px;
+    }
+    
+    .search-form button {
+      background: transparent;
+      border: none;
+      color: #333;
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+    
+    .cart-icon {
+      color: white;
+      font-size: 1.2rem;
+      margin-right: 1rem;
+      position: relative;
+    }
+    
+    .cart-icon span {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #5cb85c;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.7rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* البانر الرئيسي */
+    .banner {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/400') center/cover no-repeat;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+    }
+    
+    .banner-content {
+      max-width: 800px;
+      padding: 2rem;
+    }
+    
+    .banner h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .banner p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: #5cb85c;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    
+    .btn:hover {
+      background: #4cae4c;
+    }
+    
+    /* الفئات */
+    .category-section {
+      padding: 3rem 0;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      color: #333;
+    }
+    
+    .section-title span {
+      color: #5cb85c;
+    }
+    
+    .categories {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    
+    .category {
+      width: 200px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s;
+    }
+    
+    .category:hover {
+      transform: translateY(-5px);
+    }
+    
+    .category img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #f0f0f0;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .category h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* المنتجات المميزة */
+    .products-section {
+      background-color: #fff;
+      padding: 3rem 0;
+    }
+    
+    .products-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .product {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    
+    .product:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product-img {
+      height: 200px;
+      background-color: #f9f9f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .product-img img {
+      max-width: 100%;
+      max-height: 180px;
+    }
+    
+    .product-info {
+      padding: 1rem;
+    }
+    
+    .product h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      height: 40px;
+      overflow: hidden;
+    }
+    
+    .price {
+      font-weight: bold;
+      color: #5cb85c;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .rating {
+      color: #ffc107;
+      margin-bottom: 0.5rem;
+    }
+    
+    .cart-btn {
+      width: 100%;
+      padding: 0.7rem;
+      background: #222;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    
+    .cart-btn:hover {
+      background: #5cb85c;
+    }
+    
+    /* قسم العروض الخاصة */
+    .special-offer {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/400') center/cover no-repeat;
+      color: #fff;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    
+    .offer-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    .special-offer h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .special-offer p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .countdown {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      padding: 1rem;
+      margin: 0 0.5rem;
+      min-width: 80px;
+    }
+    
+    .countdown-item span {
+      display: block;
+    }
+    
+    .count {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    
+    .count-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+    
+    /* الفوتر */
+    footer {
+      background-color: #222;
+      color: #fff;
+      padding: 3rem 0 1rem;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+    
+    .footer-section h3 {
+      color: #5cb85c;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .footer-section ul {
+      list-style: none;
+    }
+    
+    .footer-section ul li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-section ul li a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-section ul li a:hover {
+      color: #5cb85c;
+    }
+    
+    .contact-item {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-item i {
+      margin-left: 10px;
+      color: #5cb85c;
+    }
+    
+    .social-icons {
+      display: flex;
+      margin-top: 1rem;
+    }
+    
+    .social-icons a {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #333;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 0.5rem;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    
+    .social-icons a:hover {
+      background: #5cb85c;
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #333;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+    
+    /* استجابة للموبايل */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      nav ul {
+        margin: 1rem 0;
+        justify-content: center;
+      }
+      
+      .search-cart {
+        margin-top: 1rem;
+        justify-content: center;
+      }
+      
+      .banner h2 {
+        font-size: 2rem;
+      }
+      
+      .categories {
+        justify-content: center;
+      }
+      
+      .category {
+        width: 150px;
+      }
+      
+      .countdown-item {
+        min-width: 60px;
+        padding: 0.8rem;
+      }
+      
+      .count {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- الهيدر -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <h1>Electronic<span>ProShop</span></h1>
+      </div>
+      
+      <nav>
+        <ul>
+          <li><a href="#">الرئيسية</a></li>
+          <li><a href="#">المنتجات</a></li>
+          <li><a href="#">اهم العروض</a></li>
+          <li><a href="#">من نحن</a></li>
+          <li><a href="#">اتصل بنا</a></li>
+        </ul>
+      </nav>
+      
+      <div class="search-cart">
+        <div class="cart-icon">
+          🛒 <span>0</span>
+        </div>
+        <form class="search-form">
+          <input type="text" placeholder="ابحث هنا...">
+          <button type="submit">🔍</button>
+        </form>
+      </div>
+    </div>
+  </header>
+  
+  <!-- البانر الرئيسي -->
+  <section class="banner">
+    <div class="banner-content">
+      <h2>أحدث المنتجات الإلكترونية</h2>
+      <p>اكتشف أفضل المنتجات الالكترونية بأفضل الأسعار في Elite Pro Shop</p>
+      <a href="#" class="btn">تسوق الآن</a>
+    </div>
+  </section>
+  
+  
+  <!-- المنتجات المميزة -->
+  <section class="products-section">
+    <div class="products-container">
+      <h2 class="section-title">المنتجات <span>المميزة</span></h2>
+      <div class="products">
+        <!-- منتج 1 -->
+        <div class="product">
+          <div class="product-img">
+            <img src="/api/placeholder/200/200" alt="manette gaming">
+          </div>
+          <div class="product-info">
+            <h3>ps5 mannette</h3>
+            <div class="price">199.99 $</div>
+            <div class="rating">★★★★★</div>
+            <button class="cart-btn">شراء المنتج</button>
+          </div>
+        </div>
+        
+        <!-- منتج 2 -->
+        <div class="product">
+          <div class="product-img">
+            <img src="/api/placeholder/200/200" alt="لاب توب">
+          </div>
+          <div class="product-info">
+            <h3>لاب توب ماك بوك برو 16 إنش</h3>
+            <div class="price">8,999 $</div>
+            <div class="rating">★★★★★</div>
+            <button class="cart-btn">شراء المنتج</button>
+          </div>
+        </div>
+        
+        <!-- منتج 3 -->
+        <div class="product">
+          <div class="product-img">
+            <img src="/api/placeholder/200/200" alt="ساعة ذكية">
+          </div>
+          <div class="product-info">
+            <h3>ساعة ذكية ووتش سيريس 9</h3>
+            <div class="price">1,899 $</div>
+            <div class="rating">★★★★☆</div>
+            <button class="cart-btn">شراء المنتج</button>
+          </div>
+        </div>
+        
+        <!-- منتج 4 -->
+        <div class="product">
+          <div class="product-img">
+            <img src="/api/placeholder/200/200" alt="سماعات">
+          </div>
+          <div class="product-info">
+            <h3>سماعات لاسلكية بودز برو</h3>
+            <div class="price">899 $</div>
+            <div class="rating">★★★★★</div>
+            <button class="cart-btn">شراء المنتج</button>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- منتج 3 -->
+        <div class="product">
+          <div class="product-img">
+            <img src="/api/placeholder/200/200" alt="ساعة ذكية">
+          </div>
+          <div class="product-info">
+            <h3>ساعة ذكية ووتش سيريس 9</h3>
+            <div class="price">1,899 $</div>
+            <div class="rating">★★★★☆</div>
+            <button class="cart-btn">شراء المنتج</button>
+          </div>
+        </div>
+  
+  <!-- قسم العروض الخاصة -->
+  <section class="special-offer">
+    <div class="offer-container">
+      <h2>عرض خاص لفترة محدودة</h2>
+      <p>احصل على خصم يصل إلى 40% على أحدث المنتجات الإلكترونية. العرض ساري حتى نفاذ الكمية.</p>
+      
+      <div class="countdown">
+        <div class="countdown-item">
+          <span class="count">02</span>
+          <span class="count-label">أيام</span>
+        </div>
+        <div class="countdown-item">
+          <span class="count">18</span>
+          <span class="count-label">ساعات</span>
+        </div>
+        <div class="countdown-item">
+          <span class="count">45</span>
+          <span class="count-label">دقائق</span>
+        </div>
+        <div class="countdown-item">
+          <span class="count">30</span>
+          <span class="count-label">ثواني</span>
+        </div>
+      </div>
+      
+      <a href="#" class="btn">اكتشف العروض</a>
+    </div>
+  </section>
+  
+  <!-- الفوتر -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>روابط سريعة</h3>
+        <ul>
+          <li><a href="#">الرئيسية</a></li>
+          <li><a href="#">المنتجات</a></li>
+          <li><a href="#">العروض</a></li>
+          <li><a href="#">المدونة</a></li>
+          <li><a href="#">من نحن</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>فئات المنتجات</h3>
+        <ul>
+          <li><a href="#">هواتف ذكية</a></li>
+          <li><a href="#">أجهزة لوحية</a></li>
+          <li><a href="#">لاب توب</a></li>
+          <li><a href="#">ساعات ذكية</a></li>
+          <li><a href="#">إكسسوارات</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>خدمة العملاء</h3>
+        <ul>
+          <li><a href="#">الأسئلة المتكررة</a></li>
+          <li><a href="#">سياسة الاستبدال</a></li>
+          <li><a href="#">الشحن والتوصيل</a></li>
+          <li><a href="#">سياسة الخصوصية</a></li>
+          <li><a href="#">الشروط والأحكام</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>تواصل معنا</h3>
+        <div class="contact-item">
+          <i>📍</i>
+          <span>مغيلة 1 / بني ملال /المغرب</span>
+        </div>
+        <div class="contact-item">
+          <i>📱</i>
+          <span>+212652728489</span>
+        </div>
+        <div class="contact-item">
+          <i>✉️</i>
+          <span>ymachhouri1@gmail.com</span>
+        </div>
+        
+        <div class="social-icons">
+          <a href="#">
+            <i>f</i>
+          </a>
+          <a href="#">
+            <i>t</i>
+          </a>
+          <a href="#">
+            <i>i</i>
+          </a>
+          <a href="#">
+            <i>y</i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      &copy; 2025  لايليت برو شوب. جميع الحقوق محفوظة.
+    </div>
+  </footer>
+
+  <script>
+    // سكريبت بسيط للعداد التنازلي
+    function startCountdown() {
+      const countElements = document.querySelectorAll('.count');
+      let days = parseInt(countElements[0].textContent);
+      let hours = parseInt(countElements[1].textContent);
+      let minutes = parseInt(countElements[2].textContent);
+      let seconds = parseInt(countElements[3].textContent);
+      
+      const countdown = setInterval(() => {
+        if (seconds > 0) {
+          seconds--;
+        } else {
+          seconds = 59;
+          if (minutes > 0) {
+            minutes--;
+          } else {
+            minutes = 59;
+            if (hours > 0) {
+              hours--;
+            } else {
+              hours = 23;
+              if (days > 0) {
+                days--;
+              } else {
+                clearInterval(countdown);
+                return;
+              }
+            }
+          }
+        }
+        
+        // تحديث العرض
+        countElements[0].textContent = days < 10 ? `0${days}` : days;
+        countElements[1].textContent = hours < 10 ? `0${hours}` : hours;
+        countElements[2].textContent = minutes < 10 ? `0${minutes}` : minutes;
+        countElements[3].textContent = seconds < 10 ? `0${seconds}` : seconds;
+      }, 1000);
+    }
+    
+    // تشغيل العداد عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', startCountdown);
+    
+    // أزرار إضافة إلى السلة
+    const cartButtons = document.querySelectorAll('.cart-btn');
+    const cartCount = document.querySelector('.cart-icon span');
+    let count = 0;
+    
+    cartButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        count++;
+        cartCount.textContent = count;
+        button.textContent = 'تمت الإضافة ✓';
+        button.style.background = '#5cb85c';
+        
+        setTimeout(() => {
+          button.textContent = 'إضافة للسلة';
+          button.style.background = '#222';
+        }, 1500);
+      });
+    });
+  </script>
+</body>
+</html>
